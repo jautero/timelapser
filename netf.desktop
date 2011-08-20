@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=netf
+Comment=netf is a screensaver that shows images taken by netf daemon
+TryExec=mplayer
+Exec=mplayer -rootwin -loop 0 -fs "mf:///var/lib/netf/image*.png"
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=Screensaver;
+OnlyShowIn=GNOME;KDE;XFCE
