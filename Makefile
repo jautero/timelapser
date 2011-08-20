@@ -2,12 +2,12 @@ VERSION := 0.5
 PROGRAM := netf
 TARDIR := $(PROGRAM)-$(VERSION)
 TARFILE := $(TARDIR).tar.gz
-SOURCE := Makefile netf.py screensaver.sh README.md
+SOURCE := Makefile netf.py netf.sh netf.desktop README.md
 
 all: install
 
 install: $(SOURCE)
-	echo "Not implemented"
+	install netf.desktop /usr/share/applnk/System/ScreenSavers/
 
 tarball: $(TARFILE)
 
@@ -19,4 +19,4 @@ $(TARDIR): $(SOURCE)
 	cp $(SOURCE) $(TARDIR)
 
 clean:
-	rm -rf $(TARDIR)
+	rm -rf $(TARDIR) $(TARFILE)
