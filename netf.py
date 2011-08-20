@@ -15,19 +15,19 @@ class Netf:
         im=highgui.cvQueryFrame(self.camera)
         image=opencv.adaptors.Ipl2PIL(im)
         workimage=os.path.join(self.imgdir,self.workimage)
-        imagename=os.path.join(self.imgdir,self.imagetempalate % self.index)
+        imagename=os.path.join(self.imgdir,self.imagetemplate % self.index)
         image.save(os.path.join(self.imgdir,self.workimage))
         os.rename(workimage,imagename)
         self.index+=1
         self.write_index()
     def read_index(self):
-        fh=get_indexstore_handle("r")
+        fh=self.get_indexstore_handle("r")
         if fh:
             return int(fh.read())
         else:
             return 0
     def write_index(self):
-        fh=get_indexstore_handle("w")
+        fh=self.get_indexstore_handle("w")
         if fh:
             fh.write("%d"%self.index)
             fh.close()
