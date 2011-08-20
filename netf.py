@@ -1,33 +1,51 @@
 #!/usr/bin/python
 
-import Image,opencv,time,os
+import Image,opencv,os
 from opencv import highgui
 
-def process_images(images):
-    datas = [img.load() for img in images]
-    width,height=images[0].size
-    totfiles=len(images)
-    for y in range(0,height):
-        for x in range(0,width):
-            buf=[pixeldata[x,y] for pixeldata in datas]
-            buf.sort() #sort individual pixels
-            for i in range(0,totfiles): #write out to buffer
-                datas[i][x,y]=buf[i]
+class Netf:
+    indexstore=".saved_index"
+    workimage="workpic.png"
+    imagetemplate="image%06d.png"
+    def __init__(self,imgdir="/var/lib/netf"):
+        self.camera = highgui.cvCreateCameraCapture(0)
+        self.imgdir=imgdir
+        self.index=self.read_index()
+    def get_image(self):
+        im=highgui.cvQueryFrame(self.camera)
+        image=opencv.adaptors.Ipl2PIL(im)
+        workimage=os.path.join(self.imgdir,self.workimage)
+        imagename=os.path.join(self.imgdir,self.imagetempalate % self.index)
+        image.save(os.path.join(self.imgdir,self.workimage))
+        os.rename(workimage,imagename)
+        self.index+=1
+        self.write_index()
+    def read_index(self):
+        fh=get_indexstore_handle("r")
+        if fh:
+            return int(fh.read())
+        else:
+            return 0
+    def write_index(self):
+        fh=get_indexstore_handle("w")
+        if fh:
+            fh.write("%d"%self.index)
+            fh.close()
+    def get_indexstore_handle(self,mode):
+        try:
+            return open(os.path.join(self.imgdir,self.indexstore),mode)
+        except:
+            return None
 
-imgdir="/var/lib/netf/"
-camera = highgui.cvCreateCameraCapture(0)
-delay=10
+if __name__=='__main__':
+    import time
+    delay=30
+    imager=Netf()
+    while True:
+        start_time=time.time()
+        imager.get_image()
+        delta=time.time()-start_time
+        if delta<delay:
+            time.sleep(delay-delta)
 
-index=0
-
-while True:
-    start_time=time.time()
-    im=highgui.cvQueryFrame(camera)
-    print "Took a picture"
-    image=opencv.adaptors.Ipl2PIL(im)
-    image.save(os.path.join(imgdir,"workpic.png"))
-    os.rename(os.path.join(imgdir,"workpic.png"),os.path.join(imgdir,"image%06d.png" % index))
-    index+=1
-    delta=time.time()-start_time
-    if delta<delay:
-        time.sleep(delay-delta)
+        
