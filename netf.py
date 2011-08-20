@@ -14,7 +14,7 @@ def process_images(images):
             for i in range(0,totfiles): #write out to buffer
                 datas[i][x,y]=buf[i]
 
-#images=[]
+imgdir="/var/lib/netf/"
 camera = highgui.cvCreateCameraCapture(0)
 delay=10
 
@@ -25,8 +25,8 @@ while True:
     im=highgui.cvQueryFrame(camera)
     print "Took a picture"
     image=opencv.adaptors.Ipl2PIL(im)
-    image.save("workpic.jpg")
-    os.rename("workpic.jpg","image%03d.jpg" % index)
+    image.save(os.path.join(imgdir,"workpic.png"))
+    os.rename(os.path.join(imgdir,"workpic.png"),os.path.join(imgdir,"image%06d.png" % index))
     index+=1
     delta=time.time()-start_time
     if delta<delay:
