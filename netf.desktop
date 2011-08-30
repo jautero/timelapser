@@ -2,7 +2,7 @@
 Name=netf
 Comment=netf is a screensaver that shows images taken by netf daemon
 TryExec=mplayer
-Exec=mplayer -rootwin -loop 0 -fs "mf:///var/lib/netf/image*.png"
+Exec=/usr/lib/xscreensaver/netf-display
 StartupNotify=false
 Terminal=false
 Type=Application
