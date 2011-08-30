@@ -1,0 +1,17 @@
+Source: netf
+Section: unknown
+Priority: extra
+Maintainer: Juha Autero <jautero@iki.fi>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.1
+Homepage: https://github.com/jautero/netf/
+Vcs-Git: git://github.com/jautero/netf.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/netf.git;a=summary
+
+Package: netf
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Use your webcam to take timelapse video and show it as a screensaver.
+This package includes daemon software that takes snapshots at specified intervals (30 seconds by default) using
+opencv and integrated webcam. There is also a software to view snapshots as a screensaver.
+
