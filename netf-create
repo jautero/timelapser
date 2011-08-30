@@ -1,2 +1,15 @@
 #!/usr/bin/python
+import netf, time
+delay=30
+imagedir=None
 
+if imagedir:
+    imager = netf.Netf(imagedir)
+else:
+    imager = netf.Netf()
+while True:
+    start_time=time.time()
+    imager.get_image()
+    delta=time.time()-start_time
+    if delta<delay:
+        time.sleep(delay-delta)
