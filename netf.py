@@ -7,8 +7,8 @@ class Netf:
     indexstore=".saved_index"
     workimage="workpic.png"
     imagetemplate="image%06d.png"
-    def __init__(self,imgdir="/var/lib/netf"):
-        self.camera = highgui.cvCreateCameraCapture(0)
+    def __init__(self,imgdir="/var/lib/netf",camera=0):
+        self.camera = highgui.cvCreateCameraCapture(camera)
         self.imgdir=imgdir
         self.index=self.read_index()
     def get_image(self):
@@ -38,9 +38,9 @@ class Netf:
             return None
 
 if __name__=='__main__':
-    import time
-    delay=30
-    imager=Netf()
+    import time,config
+    delay=config.delay
+    imager=Netf(config.imgdir)
     while True:
         start_time=time.time()
         imager.get_image()
@@ -48,4 +48,3 @@ if __name__=='__main__':
         if delta<delay:
             time.sleep(delay-delta)
 
-        
