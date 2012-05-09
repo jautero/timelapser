@@ -1,4 +1,5 @@
 #!/bin/sh
 
-mencoder "mf://image*.jpg" -o workmovie.mpg -ovc x264
+cd `python config.py imgdir`
+mencoder "mf://image*.png" -o workmovie.mpg -ovc x264
 
