@@ -12,6 +12,26 @@ CONFIGURATION
 
 Configuration is done in `config.py` Python file. 
 
+delay
+-----
+>"How many seconds to wait before taking next picture"
 
+imgdir
+------
+>"Directory where images taken are stored."
 
+duration
+--------
+>"How many seconds timelapse shooting should last"
 
+waitkey
+-------
+>"Wait for user to press enter before taking picture. Usefull for animation."
+
+playsound
+---------
+>"Play sound after image is taken. For animation made by moving between frames."
+
+brightnessfilter
+----------------
+>"Run process through `imagefilter.py` script that sorts pixels in images according to brightness."
