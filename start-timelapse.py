@@ -3,7 +3,7 @@ import time,config,timelapser, os
 delay=config.delay
 imager=Netf(config.imgdir)
 if config.duration != 0:
-    end_time=time.time()+duration
+    end_time=time.time()+config.duration
 else:
     end_time=0
 fh=file(os.path.join(config.imgdir,".pidfile"),"w"))
