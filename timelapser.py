@@ -36,15 +36,3 @@ class Netf:
             return open(os.path.join(self.imgdir,self.indexstore),mode)
         except:
             return None
-
-if __name__=='__main__':
-    import time,config
-    delay=config.delay
-    imager=Netf(config.imgdir)
-    while True:
-        start_time=time.time()
-        imager.get_image()
-        delta=time.time()-start_time
-        if delta<delay:
-            time.sleep(delay-delta)
-
